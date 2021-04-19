@@ -1,0 +1,33 @@
+.face
+    &-header
+        background: red
+        height: 10hv
+    &-img
+        background: green
+        padding: 0
+        z-index: 0
+        img
+            object-fit: scale-down
+            border: 1px solid yellow
+            max-height: 80vh
+            padding: 0
+            margin: 0
+            position: relative
+            z-index: 1
+            @media screen and (min-width: 992px) 
+                height: 80vh
+                
+            
+            
+    &-result
+        background: blue
+        height: 50px
+
+    &-border
+        position: absolute
+        height: 284px
+        width: 226px
+        top: 76px
+        left: 446px
+        border: 2px solid red
+        z-index: 2

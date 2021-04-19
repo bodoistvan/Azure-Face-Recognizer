@@ -1,0 +1,26 @@
+
+<div class="container-fluid" (onresize)="onResize()" (resized)="onResize($event)">
+
+    <div class="row">
+        <div class="face-header col-12">
+            <div class="form-group">
+                <label for="file">Choose File</label>
+                <input type="file"
+                    id="file"
+                    accept="image/gif, image/jpeg, image/png" 
+                    (change)="handleFileInput($event.target.files)">
+            </div>
+        </div>
+
+        <div #faceImage class="face-img col-12 col-lg-8"> 
+            <img  class="col-12" [src]="image.src" alt="myImage">
+            <app-face-chooser *ngFor="let chooser of responses; index as i" #faceChooser [chooserInfo]="chooserInfo" [faceRectangle]="responses[i].faceRectangle"></app-face-chooser>
+        </div>
+        
+        <div class="face-result col-12 col-lg-4">
+        </div>
+    </div>
+
+</div>
+
+<pre> {{responses | json}} </pre>
