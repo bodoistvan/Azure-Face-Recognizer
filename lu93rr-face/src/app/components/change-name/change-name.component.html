@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <div class="col-8 d-flex justify-content-start align-items-center">
+        <em style="font-size: 1.5rem" class="fas fa-pencil-alt"></em>
+        <h3 class="m-0">&nbsp;Changing name</h3>
+    </div>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="col-12 d-flex justify-content-center align-items-center" style="height: 5rem;">
+        <div class="form-group">
+          <input type="text" class="form-control" [formControl]="newName">
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer d-flex justify-content-around">
+    <button type="button" class="btn btn-outline-secondary" (click)="onCancelClick()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="onSubmitClick()">Save</button>
+</div>
+

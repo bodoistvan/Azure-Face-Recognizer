@@ -1,0 +1,22 @@
+<div class="container">
+
+    <div class="face-list-header col-12 d-flex justify-content-between p-0">
+        <div class="col-6 p-0">
+            <h1 class="m-0">{{personGroup?.name}}&nbsp;<i (click)="onChangeName()" class="fas fa-pencil-alt"></i></h1>
+        </div>
+    </div>
+
+    
+    <hr class="mt-1">
+    <h3>Persons:</h3>
+    <ul class="list-group person-list">
+        <li routerLink="/groups/{{groupId}}/persons/{{person?.personId}}" class="list-group-item d-flex justify-content-between align-items-center person-list-item" *ngFor="let person of personGroupPersons">
+            <a class="py-3">{{person?.name}}</a>
+        </li>
+    </ul>
+
+    <div>
+        
+    </div>
+    
+</div>

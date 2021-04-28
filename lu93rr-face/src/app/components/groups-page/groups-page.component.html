@@ -1,0 +1,10 @@
+<div class="container">
+    <h2>Groups</h2>
+    <div *ngFor="let group of personGroups | async">
+
+        <a routerLink="/groups/{{group.personGroupId}}">{{group.name}}</a>
+        
+    
+    </div>
+</div>
+

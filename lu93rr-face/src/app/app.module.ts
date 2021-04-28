@@ -12,13 +12,24 @@ import { MatSliderModule } from '@angular/material/slider';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FaceChooserComponent } from './components/face-chooser/face-chooser.component';
 import { AngularResizedEventModule } from 'angular-resize-event';
+import { SettingPageComponent } from './components/setting-page/setting-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { GroupsPageComponent } from './components/groups-page/groups-page.component';
+import { GroupPageComponent } from './components/group-page/group-page.component';
+import { PersonPageComponent } from './components/person-page/person-page.component';
+import { ChangeNameComponent } from './components/change-name/change-name.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     FaceInfoComponent,
-    FaceChooserComponent
+    FaceChooserComponent,
+    SettingPageComponent,
+    GroupsPageComponent,
+    GroupPageComponent,
+    PersonPageComponent,
+    ChangeNameComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +38,8 @@ import { AngularResizedEventModule } from 'angular-resize-event';
     BrowserAnimationsModule,
     MatSliderModule,
     NgbModule,
-    AngularResizedEventModule
+    AngularResizedEventModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
