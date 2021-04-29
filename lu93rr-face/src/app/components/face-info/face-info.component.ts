@@ -4,6 +4,7 @@ import { ChooserInfo } from 'src/app/models/chooser-info';
 import { FaceResponse } from 'src/app/models/face-response';
 import { Point } from 'src/app/models/point';
 import { FaceService } from 'src/app/services/face.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { FaceChooserComponent } from '../face-chooser/face-chooser.component';
 
 @Component({
@@ -11,16 +12,23 @@ import { FaceChooserComponent } from '../face-chooser/face-chooser.component';
   templateUrl: './face-info.component.html',
   styleUrls: ['./face-info.component.sass']
 })
-export class FaceInfoComponent implements OnInit {
+export class FaceInfoComponent implements OnInit{
 
   @ViewChild('faceImage') faceImage: ElementRef;
   @ViewChildren('faceChooser') faceChooser: FaceChooserComponent[];
 
-  constructor(private faceServive: FaceService) { }
+  constructor(
+    private faceServive: FaceService,
+    private toastService: ToastService
+    ) { }
 
   ngOnInit(): void {
     //this.faceServive.recognizeFaces().subscribe(data => this.response = data, err=>console.error(err));
+    
+    
   }
+
+
 
   public responses:FaceResponse[] = [];
 
@@ -48,7 +56,13 @@ export class FaceInfoComponent implements OnInit {
       }
       
       const data = this.faceServive.b64toBlob(this.image.src.replace("data:image/jpeg;base64,", ""));
-      this.faceServive.recognizeFaces(data).subscribe(data => this.responses = data, err=>{console.error(err); console.error(err)});
+      this.faceServive.recognizeFaces(data).subscribe(data => {
+        this.responses = data;
+        this.toastService.show("Image uploaded.", { classname:'bg-success', delay: 3000})
+      }, err=>{
+        console.error(err); console.error(err)
+      });
+      this.toastService.show("Uploading image...", { delay: 3000})
     }
     reader.readAsDataURL(this.fileToUpload);
   }

@@ -15,6 +15,7 @@
         <div #faceImage class="face-img col-12 col-lg-8"> 
             <img  class="col-12" [src]="image.src" alt="myImage">
             <app-face-chooser *ngFor="let chooser of responses; index as i" #faceChooser [chooserInfo]="chooserInfo" [faceRectangle]="responses[i].faceRectangle"></app-face-chooser>
+            <app-toasts class="image-toast" aria-live="polite" aria-atomic="true"></app-toasts>
         </div>
         
         <div class="face-result col-12 col-lg-4">
@@ -22,5 +23,6 @@
     </div>
 
 </div>
+
 
 <pre> {{responses | json}} </pre>

@@ -10,6 +10,7 @@ export class FaceChooserComponent implements OnInit, AfterViewInit {
 
   @ViewChild('faceChooser') faceChooser : ElementRef;
   @Input() chooserInfo:ChooserInfo = {topLeftCorner: {x: 0,y : 0}, ratio : 1.0};
+  @Input() name:string = "Scarlett Johansson";
   @Input() faceRectangle:any = {
     top: 76,
     left: 446,
@@ -38,10 +39,6 @@ export class FaceChooserComponent implements OnInit, AfterViewInit {
     this.faceChooser.nativeElement.style.left = left + "px";
     this.faceChooser.nativeElement.style.width = width + "px";
     this.faceChooser.nativeElement.style.height = height + "px";
-
-    console.log(top, left, width, height);
-    console.log(this.chooserInfo, this.faceRectangle);
-
   }
 
 }

@@ -21,6 +21,7 @@ import { ChangeNameComponent } from './components/change-name/change-name.compon
 import { NavComponent } from './components/nav/nav.component';
 import { YouSureComponent } from './components/you-sure/you-sure.component';
 import { GroupNavComponent } from './components/group-nav/group-nav.component';
+import { ToastsContainerComponent } from './components/toasts-container/toasts-container.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { GroupNavComponent } from './components/group-nav/group-nav.component';
     ChangeNameComponent,
     NavComponent,
     YouSureComponent,
-    GroupNavComponent
+    GroupNavComponent,
+    ToastsContainerComponent
   ],
   imports: [
     BrowserModule,

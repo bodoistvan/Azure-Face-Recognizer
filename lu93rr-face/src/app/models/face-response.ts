@@ -1,5 +1,6 @@
 export interface FaceResponse {
     faceId: string
+    name?: string
     faceRectangle: {
       top: number,
       left: number,
