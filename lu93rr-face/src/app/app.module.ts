@@ -20,6 +20,7 @@ import { PersonPageComponent } from './components/person-page/person-page.compon
 import { ChangeNameComponent } from './components/change-name/change-name.component';
 import { NavComponent } from './components/nav/nav.component';
 import { YouSureComponent } from './components/you-sure/you-sure.component';
+import { GroupNavComponent } from './components/group-nav/group-nav.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { YouSureComponent } from './components/you-sure/you-sure.component';
     PersonPageComponent,
     ChangeNameComponent,
     NavComponent,
-    YouSureComponent
+    YouSureComponent,
+    GroupNavComponent
   ],
   imports: [
     BrowserModule,
