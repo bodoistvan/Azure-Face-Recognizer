@@ -1,14 +1,16 @@
+$backgroundColor : #b5e9d3
 .face
     &-header
-        background: red
+        background: $backgroundColor
         height: 10hv
     &-img
-        background: green
+        border-top:0
+        border-bottom:0
+        background: $backgroundColor
         padding: 0
         z-index: 0
         img
             object-fit: scale-down
-            border: 1px solid yellow
             max-height: 80vh
             padding: 0
             margin: 0
@@ -20,8 +22,10 @@
             
             
     &-result
-        background: blue
-        height: 50px
+        background: $backgroundColor
+
+        &-box
+            background: red !important
 
     &-border
         position: absolute

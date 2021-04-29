@@ -7,6 +7,8 @@ import { PersonGroup } from '../models/person-group';
 import { PersonGroupPerson } from '../models/person-group-person';
 import { TrainStatus } from '../models/train-status';
 import { map, catchError } from 'rxjs/operators';
+import { ThrowStmt } from '@angular/compiler';
+import { IdentifiedData } from '../models/identified-data';
 
 @Injectable({
   providedIn: 'root'
@@ -215,19 +217,40 @@ export class FaceService {
     });  
   }
 
-  recognizeFaces(data: any){
-    return this.http.post<FaceResponse[]>( "https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&recognitionModel=recognition_01&returnRecognitionModel=true&detectionModel=detection_01&faceIdTimeToLive=86400&returnFaceAttributes=blur,exposure,noise,age,gender,facialhair,glasses,hair,makeup,accessories,occlusion,headpose,emotion,smile", 
+  faceDetect(img: any):Observable<FaceResponse[]>{
+    return this.http.post<FaceResponse[]>( `${this.serviceRegion}/face/v1.0/detect`, 
     
-    data,
+    this.b64toBlob(img.src.split(",")[1]),
 
     {
        headers:{
         "Content-Type": "application/octet-stream",
-        "Ocp-Apim-Subscription-Key" : "f134ff913e2b4b98bcca7f1da55b98c6"
+        "Ocp-Apim-Subscription-Key" : this.subscriptionKey
+       },
+       params: {
+        'returnFaceId' : 'true',
+        'recognitionModel':'recognition_01',
+        'detectionModel':'detection_01',
+        'faceIdTimeToLive':'86400',
+        'returnFaceAttributes' : "age,gender,glasses,makeup,smile"
        }
     }
     
     )
+  }
+
+  faceIdentify(data: {PersonGroupId: string, faceIds: string[]}) {
+    return this.http.post<IdentifiedData[]>(`${this.serviceRegion}/face/v1.0/identify`,
+    {
+      ...data,
+      maxNumOfCandidatesReturned: 1,
+      confidenceThreshold: 0.5
+    },
+    {
+      headers : {
+        "Ocp-Apim-Subscription-Key" : this.subscriptionKey
+      }
+    });  
   }
 
   public b64toBlob = (b64DataStr: string, contentType = '', sliceSize = 512) => {

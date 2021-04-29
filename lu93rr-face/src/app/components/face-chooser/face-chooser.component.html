@@ -1,7 +1,6 @@
 
-<div #faceChooser class="face-chooser btn btn-outline-warning d-flex align-items-end justify-content-start">
-    <div class="chooser-bottom"><p class="face-chooser-name">{{name}}</p></div>
-   
+<div #faceChooser (click)="onClickActive()" [class.face-chooser-active]="active" class="face-chooser btn d-flex align-items-end justify-content-start">
+    <div class="chooser-bottom"><p *ngIf="nameDefined" class="face-chooser-name">{{chooserData?.name? chooserData.name : '' }}</p></div>
 </div>
 
 

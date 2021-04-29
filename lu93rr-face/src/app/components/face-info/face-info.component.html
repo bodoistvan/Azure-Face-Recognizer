@@ -1,28 +1,50 @@
-
+<app-nav></app-nav>
 <div class="container-fluid" (onresize)="onResize()" (resized)="onResize($event)">
 
     <div class="row">
-        <div class="face-header col-12">
-            <div class="form-group">
-                <label for="file">Choose File</label>
-                <input type="file"
-                    id="file"
-                    accept="image/gif, image/jpeg, image/png" 
-                    (change)="handleFileInput($event.target.files)">
+        <div class="face-header col-12 pt-2">
+            <div class="row d-flex align-items-center">
+                <div class="form-group col-12 col-md-6">
+                    <label for="fileChooser">Choose File</label>
+                    <input type="file" class="form-control-file" id="fileChooser" accept="image/gif, image/jpeg, image/png"
+                        (change)="handleFileInput($event.target.files)">
+                </div>
+                <div class="form-group col-12 col-md-3">
+                    <label for="groupSelect">Identification Group</label>
+                    <select class="form-control" id="groupSelect" [(ngModel)]="selectedGroup">
+                        <option value="none">None</option>
+                        <option [value]="group.personGroupId" *ngFor="let group of groupList$ | async">{{group.name}}</option>
+                    </select>
+                </div>
             </div>
         </div>
 
-        <div #faceImage class="face-img col-12 col-lg-8"> 
-            <img  class="col-12" [src]="image.src" alt="myImage">
-            <app-face-chooser *ngFor="let chooser of responses; index as i" #faceChooser [chooserInfo]="chooserInfo" [faceRectangle]="responses[i].faceRectangle"></app-face-chooser>
+        <div #faceImage class="face-img col-12 col-lg-8">
+            <img *ngIf="image.src.length > 40" class="col-12" [src]="image.src" alt="myImage">
+            <app-face-chooser *ngFor="let chooser of responses; index as i" #faceChooser [chooserInfo]="chooserInfo"
+                [chooserData]="getChooserData(i)" [active]="responses[i] == selectedResponse" (activeChooser)="setSelectedById($event)"></app-face-chooser>
             <app-toasts class="image-toast" aria-live="polite" aria-atomic="true"></app-toasts>
         </div>
-        
+
         <div class="face-result col-12 col-lg-4">
+           
+            <div *ngIf="selectedResponse!= undefined" class="card">
+                <div *ngIf="selectedResponse?.name != undefined" class="card-header">
+                    <h1 class="m-0">{{selectedResponse.name }}</h1>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><p class="m-0"><span class="font-weight-bold">smile:</span> {{selectedResponse.faceAttributes.smile}}</p></li>
+                  <li class="list-group-item"><p class="m-0"><span class="font-weight-bold">gender:</span> {{selectedResponse.faceAttributes.gender}}</p></li>
+                  <li class="list-group-item"><p class="m-0"><span class="font-weight-bold">age:</span> {{selectedResponse.faceAttributes.age}}</p></li>
+                  <li class="list-group-item"><p class="m-0"><span class="font-weight-bold">glasses:</span> {{selectedResponse.faceAttributes.glasses}}</p></li>
+                  <li class="list-group-item"><p class="m-0"><span class="font-weight-bold">eyeMakeup:</span> {{selectedResponse.faceAttributes.makeup.eyeMakeup}}</p></li>
+                  <li class="list-group-item"><p class="m-0"><span class="font-weight-bold">lipMakeup:</span> {{selectedResponse.faceAttributes.makeup.lipMakeup}}</p></li>
+                </ul>
+              </div>
+            
         </div>
     </div>
 
 </div>
 
 
-<pre> {{responses | json}} </pre>

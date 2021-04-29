@@ -1,9 +1,17 @@
 .face-chooser 
     position: absolute
-    border: 3px solid #2969e0
+    border: 3px double #8d8d8d
     z-index: 2
     display: block
     padding: 0
+    &:hover
+        background: #109749
+        opacity: 0.5
+
+    &-active
+        border-style: solid
+        border-color: #109749
+        pointer-events: none
 
 .chooser-bottom
     position: relative
