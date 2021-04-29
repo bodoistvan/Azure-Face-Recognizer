@@ -1,9 +1,44 @@
+<app-nav></app-nav>
 <div class="container">
 
-    <h1>{{person?.name}}</h1>
+    <div class="face-list-header col-12 d-flex justify-content-between p-0 mb-4">
+        <div class="col-6 p-0">
+            <h1 class="m-0">{{person?.name}}&nbsp;<i (click)="onChangeName()" class="fas fa-pencil-alt"></i></h1>
+        </div>
+       <div class="d-flex align-items-center">
+        <button (click)="onPersonDelete()" class="btn btn-outline-danger mr-2">Delete Person</button>
+       </div>
+        
+   
+    </div>
 
-    <ul>
-        <li *ngFor="let face of person?.persistedFaceIds">{{face}}</li>
-    </ul>
+    <div class="col-12 p-3 rounded border border-success">
 
+        <div class="col-12 p-0 d-flex justify-content-between">
+            <div class="form-group">
+                <label for="exampleFormControlFile1">Upload New Face</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1" (change)="handleFileInput($event.target.files)">
+            </div>
+            <div class="pt-3">
+                <button (click)="onUpload()" #uploadButton class="btn btn-outline-success">Upload</button>
+            </div>
+
+        </div>
+
+        <div *ngIf="image.src.length > 30" class="col-12 text-center mb-2">
+            <img  class="face-new" [src]="image.src" alt="">
+        </div>
+
+    </div>
+
+    <div>
+        <h2 class="mb-1">Images:</h2>
+        <ul class="list-group person-list">
+            <li routerLink="/groups/{{groupId}}/persons/{{person?.personId}}"
+                class="list-group-item d-flex justify-content-between align-items-center person-list-item"
+                *ngFor="let face of person?.persistedFaceIds">
+                <a class="py-3">{{face}}</a><i (click)="onFaceDelete(face)" class="far fa-trash-alt face-delete"></i>
+            </li>
+        </ul>
+    </div>
 </div>

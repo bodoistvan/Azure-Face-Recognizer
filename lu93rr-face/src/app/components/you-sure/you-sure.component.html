@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <div class="col-8 d-flex justify-content-start align-items-center text-danger">
+        <em style="font-size: 2rem" class="fas fa-exclamation-triangle"></em>
+        <h5 class="m-0">&nbsp;Alert</h5>
+    </div>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="col-12 justify-content-center align-items-center" style="height: 5rem;">
+        <h4 class="m-0">{{text}}</h4>
+      </div>
+  </div>
+  <div class="modal-footer d-flex justify-content-around">
+    <button type="button" class="btn btn-outline-secondary" (click)="onCancelClick()">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="onSubmitClick()">DO IT</button>
+</div>

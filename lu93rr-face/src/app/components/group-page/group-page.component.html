@@ -1,22 +1,64 @@
+<app-nav></app-nav>
 <div class="container">
 
     <div class="face-list-header col-12 d-flex justify-content-between p-0">
         <div class="col-6 p-0">
             <h1 class="m-0">{{personGroup?.name}}&nbsp;<i (click)="onChangeName()" class="fas fa-pencil-alt"></i></h1>
         </div>
+        <div class="d-flex align-items-center">
+            <button (click)="onGroupDelete()" class="btn btn-outline-danger mr-2">Delete Group</button>
+        </div>
     </div>
 
-    
-    <hr class="mt-1">
-    <h3>Persons:</h3>
+    <div class="row d-flex justify-content-around p-2">
+        <div class="col-12 col-lg-6 mb-4 p-0 px-2 pr-lg-1">
+            <div class="col-12 p-1 pl-3 border border-warning rounded" style="height: 100%;">
+                <h3 class="my-1">Train Info</h3>
+                <div class="col-12 p-0 d-flex justify-content-around align-items-end">
+                    <div class="col-9 p-0">
+                        <p><span class="font-weight-bold">Status:</span> {{trainInfo?.status | uppercase}} </p>
+                        <p><span
+                            class="font-weight-bold">Last Train at:</span> {{trainInfo?.lastActionDateTime |
+                        date:"YYYY.MM.dd HH:mm"}}</p>
+                    </div>
+                    <div class="col-3 p-0 pb-2 d-flex justify-content-end">
+                        <button (click)="onTrain()" class="btn btn-warning mr-3">Train</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6 p-0 px-2 pl-lg-1 mb-4">
+            <div class="col-12 p-1 border border-warning rounded" style="height: 100%;">
+            <h3 class="m-0 ml-3 mt-2 mb-3">Create New Person</h3>
+            <div class="form-group col-12 mb-0">
+
+                <div class="row m-0">
+                    <div class="col-12 col-md-10 mb-2 p-0 pr-md-2">
+                        <input type="text" [class.is-invalid]="(!newPersonForm.valid && newPersonForm.touched)"
+                            class="form-control col-12" name="newPersonId" id="newPersonId" aria-describedby="helpId"
+                            [formControl]="newPersonForm" placeholder="name">
+                    </div>
+
+                    <div class="col-12 col-md-2 d-flex justify-content-end p-0 mb-2">
+                        <button (click)="onNewPersonSubmit()" class="btn btn-outline-success col-3 col-md-12"
+                            [disabled]="!newPersonForm.valid && newPersonForm.touched">Create</button>
+                    </div>
+                </div>
+                <small class="text-danger d-none d-md-block ml-4"
+                    [class.invisible]="!(!newPersonForm.valid && newPersonForm.touched)">Name is
+                    required</small>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <h2>Persons:</h2>
     <ul class="list-group person-list">
-        <li routerLink="/groups/{{groupId}}/persons/{{person?.personId}}" class="list-group-item d-flex justify-content-between align-items-center person-list-item" *ngFor="let person of personGroupPersons">
+        <li routerLink="/groups/{{groupId}}/persons/{{person?.personId}}"
+            class="list-group-item d-flex justify-content-between align-items-center person-list-item"
+            *ngFor="let person of personGroupPersons">
             <a class="py-3">{{person?.name}}</a>
         </li>
     </ul>
-
-    <div>
-        
-    </div>
-    
+</div>
 </div>

@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ApiCondition } from '../models/api-condition';
 import { FaceResponse } from '../models/face-response';
 import { PersonGroup } from '../models/person-group';
 import { PersonGroupPerson } from '../models/person-group-person';
+import { TrainStatus } from '../models/train-status';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,7 @@ export class FaceService {
   ) {
     this.loadApiCondition();
   }
-  
+
   isApiConditionsLoaded(){
     return this.isSubscriptionKeyLoaded() && this.isRegionLoaded();
   }
@@ -72,7 +74,7 @@ export class FaceService {
   }
 
   getPersonGroupTrainStatus(groupId: string){
-    return this.http.get(`${this.serviceRegion}/face/v1.0/persongroups/${groupId}/training`,
+    return this.http.get<TrainStatus>(`${this.serviceRegion}/face/v1.0/persongroups/${groupId}/training`,
     {
       headers : {
         "Ocp-Apim-Subscription-Key" : this.subscriptionKey
@@ -81,7 +83,8 @@ export class FaceService {
   }
 
   postPersonGroupTrain(groupId: string){
-    return this.http.post(`${this.serviceRegion}/face/v1.0/persongroups/${groupId}`,
+    return this.http.post(`${this.serviceRegion}/face/v1.0/persongroups/${groupId}/train`,
+    {},
     {
       headers : {
         "Ocp-Apim-Subscription-Key" : this.subscriptionKey
@@ -89,9 +92,20 @@ export class FaceService {
     });
   }
 
-  putPersonGroupCreate(groupName:string){
-    const id = groupName + new Date().getUTCMilliseconds() + "";
-    return this.http.put(`${this.serviceRegion}/face/v1.0/persongroups/${id}`, 
+  makeid() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  
+    for (var i = 0; i < 5; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+  
+    return text;
+  }
+
+  putPersonGroupCreate(groupName:string):Observable<PersonGroup>{
+    const id = groupName.toLowerCase();
+    console.log(id);
+    return this.http.put<PersonGroup>(`${this.serviceRegion}/face/v1.0/persongroups/${id}`, 
     {
       name : groupName
     },
@@ -99,7 +113,10 @@ export class FaceService {
       headers : {
         "Ocp-Apim-Subscription-Key" : this.subscriptionKey
       }
-    });
+    }).pipe(map( (res:any) => {
+      const pg:PersonGroup = {name: groupName, personGroupId: id}
+      return pg
+    }) )
   }
 
   patchPersonGroup(groupId: string, name:string){
@@ -112,6 +129,16 @@ export class FaceService {
         "Ocp-Apim-Subscription-Key" : this.subscriptionKey
       }
     });
+  }
+
+  deletePersonGroup(groupId: string){
+    console.log("delete");
+    return this.http.delete(`${this.serviceRegion}/face/v1.0/persongroups/${groupId}`,
+    {
+      headers : {
+        "Ocp-Apim-Subscription-Key" : this.subscriptionKey
+      }
+    });  
   }
 
   //PersonGroup Person
@@ -146,10 +173,10 @@ export class FaceService {
   }
 
   postPersonGroupPersonAddFace(gourpId:string, personId: string, img:any){
-    return this.http.post<{personId : string}>(`${this.serviceRegion}/face/v1.0/persongroups/${gourpId}/persons/${personId}/persistedFaces`,
-    {
-      data : this.b64toBlob(img)
-    },
+    return this.http.post<{persistedFaceId : string}>(`${this.serviceRegion}/face/v1.0/persongroups/${gourpId}/persons/${personId}/persistedFaces`,
+    
+    this.b64toBlob(img.src.split(",")[1]),
+    
     {
       headers : {
         "Content-Type": "application/octet-stream",
@@ -187,7 +214,6 @@ export class FaceService {
       }
     });  
   }
-
 
   recognizeFaces(data: any){
     return this.http.post<FaceResponse[]>( "https://westeurope.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&recognitionModel=recognition_01&returnRecognitionModel=true&detectionModel=detection_01&faceIdTimeToLive=86400&returnFaceAttributes=blur,exposure,noise,age,gender,facialhair,glasses,hair,makeup,accessories,occlusion,headpose,emotion,smile", 

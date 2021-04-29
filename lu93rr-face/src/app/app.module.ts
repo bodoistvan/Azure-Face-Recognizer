@@ -18,6 +18,8 @@ import { GroupsPageComponent } from './components/groups-page/groups-page.compon
 import { GroupPageComponent } from './components/group-page/group-page.component';
 import { PersonPageComponent } from './components/person-page/person-page.component';
 import { ChangeNameComponent } from './components/change-name/change-name.component';
+import { NavComponent } from './components/nav/nav.component';
+import { YouSureComponent } from './components/you-sure/you-sure.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { ChangeNameComponent } from './components/change-name/change-name.compon
     GroupsPageComponent,
     GroupPageComponent,
     PersonPageComponent,
-    ChangeNameComponent
+    ChangeNameComponent,
+    NavComponent,
+    YouSureComponent
   ],
   imports: [
     BrowserModule,
