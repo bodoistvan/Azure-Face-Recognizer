@@ -1,8 +1,7 @@
-<app-nav></app-nav>
 <app-group-nav></app-group-nav>
 <div class="container">
 
-    <div class="face-list-header col-12 d-flex justify-content-between p-0 mb-4">
+    <div class="face-list-header col-12 d-flex justify-content-between p-0 mb-2">
         <div class="col-6 p-0">
             <h1 class="m-0">{{person?.name}}&nbsp;<i (click)="onChangeName()" class="fas fa-pencil-alt"></i></h1>
         </div>
@@ -32,13 +31,13 @@
 
     </div>
 
-    <div>
-        <h2 class="mb-1">Images:</h2>
+    <div class="mt-4">
+        <h2 class="mb-1">Images: {{imagesToShow.length == 0 ? 'No images found.' : ''}}</h2>
         <ul class="list-group person-list">
             <li routerLink="/groups/{{groupId}}/persons/{{person?.personId}}"
                 class="list-group-item d-flex justify-content-between align-items-center person-list-item"
-                *ngFor="let face of person?.persistedFaceIds">
-                <a class="py-3">{{face}}</a><i (click)="onFaceDelete(face)" class="far fa-trash-alt face-delete"></i>
+                *ngFor="let face of imagesToShow">
+                <a class="py-3">{{face.persistedFaceId}}&nbsp;{{face.location? face.location : 'no-data'}}</a><i (click)="onFaceDelete(face.persistedFaceId)" class="far fa-trash-alt face-delete"></i>
             </li>
         </ul>
     </div>

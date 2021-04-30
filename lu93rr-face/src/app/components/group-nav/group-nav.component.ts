@@ -8,6 +8,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class GroupNavComponent implements OnInit {
 
+  /*
+  Röviden: A csoportok, személyek közötti navigációs ablak
+  */
+
   constructor(
    private route: ActivatedRoute,
    private router:Router
@@ -16,8 +20,12 @@ export class GroupNavComponent implements OnInit {
   groupId:string;
   personId:string;
 
+  //mivel az adatszerkezet egy fa, meg lehet határozni milyen mélyen vagyunk a rendelkezésre álló paraméterek alapján
+  //alapértelmezetten 0, tehát a csoportokat listázzuk
   level = 0;
 
+  //paraméterek alapján a fának mélységének meghatározása. Ha van groupId akkor a személyeket listázzuk
+  // Ha van personId is akkor az adott személy adatait listázzuk már
   ngOnInit(): void {
     this.route.params.subscribe((params)=>{
       this.groupId = params["groupId"];
@@ -28,10 +36,10 @@ export class GroupNavComponent implements OnInit {
       if (this.personId != undefined){
         this.level = 2;
       }
-      
     })
   }
 
+  //a rendelkezésre álló paraméter alapján lehet előre ugrálni a fában.
   toLevel(index:number){
     if (index < this.level){
       switch(index){

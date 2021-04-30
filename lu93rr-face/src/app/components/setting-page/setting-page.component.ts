@@ -10,6 +10,10 @@ import { FaceService } from 'src/app/services/face.service';
 })
 export class SettingPageComponent implements OnInit {
 
+  /**
+   * Röviden: Az API hívásokhoz szükséges kulcs megadása ablak
+   */
+
   constructor(
     private fb:FormBuilder,
     private faceService: FaceService
@@ -31,7 +35,7 @@ export class SettingPageComponent implements OnInit {
     return this.settingsForm.get("key") as FormControl;
   }
 
-
+  //A submit gomra beállítódik a localStorage-be az információk
   onSubmitClick(){
 
     this.key.markAsTouched()

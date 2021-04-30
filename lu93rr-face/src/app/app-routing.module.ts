@@ -5,11 +5,12 @@ import { GroupPageComponent } from './components/group-page/group-page.component
 import { GroupsPageComponent } from './components/groups-page/groups-page.component';
 import { PersonPageComponent } from './components/person-page/person-page.component';
 import { SettingPageComponent } from './components/setting-page/setting-page.component';
+import { AuthGuardService as AuthGuard } from './services/auth-guard.service'
 
 const routes: Routes = [
-  { path: "face", component: FaceInfoComponent },
+  { path: "face", component: FaceInfoComponent, canActivate: [AuthGuard] },
   { path: "settings", component: SettingPageComponent },
-  { path: "groups", children: 
+  { path: "groups", canActivate: [AuthGuard], children: 
     [
       { path: ":groupId/persons/:personId", component: PersonPageComponent },
       { path: ":groupId", component: GroupPageComponent },

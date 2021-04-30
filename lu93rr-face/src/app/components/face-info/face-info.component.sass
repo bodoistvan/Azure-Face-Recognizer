@@ -10,6 +10,7 @@ $backgroundColor : #b5e9d3
         padding: 0
         z-index: 0
         img
+            border-top: 0.5rem solid #0f7c58
             object-fit: scale-down
             max-height: 80vh
             padding: 0
@@ -18,14 +19,15 @@ $backgroundColor : #b5e9d3
             z-index: 1
             @media screen and (min-width: 992px) 
                 height: 80vh
-                
+                border-right: 0.5rem solid #0f7c58
             
             
     &-result
         background: $backgroundColor
-
         &-box
-            background: red !important
+            width: 100%
+            border-top: 0.5rem solid #0f7c58
+            padding-top: 1rem
 
     &-border
         position: absolute

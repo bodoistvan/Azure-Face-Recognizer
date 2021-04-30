@@ -15,6 +15,13 @@ import { IdentifiedData } from '../models/identified-data';
 })
 export class FaceService {
 
+  /**
+   * Röviden: Az Azura Face API hívások függvényei
+   * 
+   * Api konzol:
+   * https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f30395236
+   */
+
   private subscriptionKey: string;
   private serviceRegion: string;
 

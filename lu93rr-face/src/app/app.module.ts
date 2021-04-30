@@ -23,21 +23,25 @@ import { YouSureComponent } from './components/you-sure/you-sure.component';
 import { GroupNavComponent } from './components/group-nav/group-nav.component';
 import { ToastsContainerComponent } from './components/toasts-container/toasts-container.component';
 
+const myComponents = [
+  FaceInfoComponent,
+  FaceChooserComponent,
+  SettingPageComponent,
+  GroupsPageComponent,
+  GroupPageComponent,
+  PersonPageComponent,
+  ChangeNameComponent,
+  NavComponent,
+  YouSureComponent,
+  GroupNavComponent,
+  ToastsContainerComponent
+]
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    FaceInfoComponent,
-    FaceChooserComponent,
-    SettingPageComponent,
-    GroupsPageComponent,
-    GroupPageComponent,
-    PersonPageComponent,
-    ChangeNameComponent,
-    NavComponent,
-    YouSureComponent,
-    GroupNavComponent,
-    ToastsContainerComponent
+    ...myComponents
   ],
   imports: [
     BrowserModule,

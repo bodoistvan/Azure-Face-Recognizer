@@ -8,6 +8,8 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class ToastsContainerComponent {
 
+  //https://ng-bootstrap.github.io/#/components/toast/overview
+
   constructor(public toastService: ToastService) {}
 
   isTemplate(toast) { return toast.textOrTpl instanceof TemplateRef; }

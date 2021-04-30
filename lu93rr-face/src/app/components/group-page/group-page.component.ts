@@ -17,6 +17,11 @@ import { YouSureComponent } from '../you-sure/you-sure.component';
 })
 export class GroupPageComponent implements OnInit {
 
+  /*
+  Röviden: Az adott csoportot listázó oldal
+  A csoportot a groupId paraméter azonosítja
+  */
+
   constructor(
     private faceService:FaceService,
     private route:ActivatedRoute,
@@ -25,6 +30,7 @@ export class GroupPageComponent implements OnInit {
     private router:Router
   ) { }
 
+  //Init, Az adatok lekérdezése API segítségével
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.groupId = params["groupId"];
@@ -40,25 +46,26 @@ export class GroupPageComponent implements OnInit {
   public personGroupPersons: PersonGroupPerson[] = [];
   public trainInfo:TrainStatus;
 
+  //A ceruza ikon kattintására hívódik meg a név beálító ablak
   onChangeName(){
     const modalRef = this.modalService.open(ChangeNameComponent, {centered: true});
     modalRef.componentInstance.prevName = this.personGroup.name;
     modalRef.componentInstance.onSubmit.subscribe((name) => this.changeName(name));
   }
 
+  //A train gomb kattintására, API hívás -> train
   onTrain(){
     this.faceService.postPersonGroupTrain(this.groupId).subscribe(()=>{
       setTimeout(()=> this.faceService.getPersonGroupTrainStatus(this.groupId).subscribe(data => this.trainInfo = data), 1000)
     })
   }
 
+  //Ha a felugró ablakban megváltoztattuk a nevet akkor API hívás
   changeName(name:string){
     this.faceService.patchPersonGroup(this.groupId, name).subscribe(()=>{
       this.personGroup.name = name;
     });
   }
-
-  onDelete(){}
 
   newPersonForm = this.fb.control([], Validators.required);
 
@@ -66,6 +73,7 @@ export class GroupPageComponent implements OnInit {
     return array.sort((a,b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0))
   }
 
+  //Új felhasználó létrehozása és a lista bővítése
   onNewPersonSubmit(){
     this.newPersonForm.markAsTouched();
 
@@ -75,20 +83,20 @@ export class GroupPageComponent implements OnInit {
         const person:PersonGroupPerson = {name: name, personId : res.personId, persistedFaceIds: []};  
         this.personGroupPersons.push(person);
         this.personGroupPersons = this.sortByName(this.personGroupPersons);
-
         this.newPersonForm.reset();
-      
         this.newPersonForm.markAsUntouched();
       });
     }
   }
 
+  //Biztosan törölni akarod ablak megnyitása
   onGroupDelete(){
     const modalRef = this.modalService.open(YouSureComponent, {centered: true});
     modalRef.componentInstance.text = "Are you sure you wante to delete group: "+ this.personGroup.name;
     modalRef.componentInstance.onSubmit.subscribe(() => this.groupDelete());
   }
 
+  //Maga a törlés, API hívás
   groupDelete(){
     this.faceService.deletePersonGroup(this.groupId).subscribe( ()=> {
       this.router.navigate(["groups"]);

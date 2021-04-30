@@ -1,16 +1,16 @@
-<app-nav></app-nav>
+
 <div class="container-fluid" (onresize)="onResize()" (resized)="onResize($event)">
 
     <div class="row">
         <div class="face-header col-12 pt-2">
             <div class="row d-flex align-items-center">
                 <div class="form-group col-12 col-md-6">
-                    <label for="fileChooser">Choose File</label>
+                    <label for="fileChooser"><h3 class="mb-0">Choose File</h3></label>
                     <input type="file" class="form-control-file" id="fileChooser" accept="image/gif, image/jpeg, image/png"
                         (change)="handleFileInput($event.target.files)">
                 </div>
-                <div class="form-group col-12 col-md-3">
-                    <label for="groupSelect">Identification Group</label>
+                <div class="form-group col-12 mt-2 col-md-3">
+                    <label for="groupSelect"><h3 class="mb-0">Identification Group</h3></label>
                     <select class="form-control" id="groupSelect" [(ngModel)]="selectedGroup">
                         <option value="none">None</option>
                         <option [value]="group.personGroupId" *ngFor="let group of groupList$ | async">{{group.name}}</option>
@@ -26,8 +26,9 @@
             <app-toasts class="image-toast" aria-live="polite" aria-atomic="true"></app-toasts>
         </div>
 
-        <div class="face-result col-12 col-lg-4">
-           
+        <div class="face-result col-12 p-0 col-lg-4">
+           <div *ngIf="selectedResponse" class="face-result-box">
+
             <div *ngIf="selectedResponse!= undefined" class="card">
                 <div *ngIf="selectedResponse?.name != undefined" class="card-header">
                     <h1 class="m-0">{{selectedResponse.name }}</h1>
@@ -41,10 +42,9 @@
                   <li class="list-group-item"><p class="m-0"><span class="font-weight-bold">lipMakeup:</span> {{selectedResponse.faceAttributes.makeup.lipMakeup}}</p></li>
                 </ul>
               </div>
-            
+            </div>
         </div>
     </div>
-
 </div>
 
 

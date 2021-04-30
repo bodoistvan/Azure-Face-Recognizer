@@ -2,6 +2,9 @@ import { Injectable, TemplateRef } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
+
+  //https://ng-bootstrap.github.io/#/components/toast/overview
+
   toasts: any[] = [];
 
   show(textOrTpl: string | TemplateRef<any>, options: any = {}) {

@@ -1,11 +1,10 @@
 <div class="container">
-
-    <div class="row d-flex align-items-center ml-4 my-2">
-        <button style="width: 2rem; height: 2rem; display: block;" (click)="toLevel(0)" [class.active]="level==0" class="ml-2 btn btn-outline-primary"></button>
-        <i class="pl-2 fas fa-long-arrow-alt-right"></i>
-        <button style="width: 2rem; height: 2rem; display: block;" (click)="toLevel(1)" [disabled]="level < 1" [class.active]="level==1" class="ml-2 btn btn-outline-warning"></button>
-        <i class="pl-2 fas fa-long-arrow-alt-right"></i>
-        <button style="width: 2rem; height: 2rem; display: block;" [class.active]="level==2" [disabled]="level < 2" class="ml-2 btn btn-outline-success"></button>
+    <div class="row d-flex align-items-center pl-0 ml-0 my-2">
+        <button style="width: 2rem; height: 2rem; display: block;" (click)="toLevel(0)" [class.active]="level==0" class="mr-2 btn btn-outline-primary"></button>
+        <i class="pr-2 fas fa-long-arrow-alt-right"></i>
+        <button style="width: 2rem; height: 2rem; display: block;" (click)="toLevel(1)" [disabled]="level < 1" [class.active]="level==1" class="mr-2 btn btn-outline-warning"></button>
+        <i class="pr-2 fas fa-long-arrow-alt-right"></i>
+        <button style="width: 2rem; height: 2rem; display: block;" [class.active]="level==2" [disabled]="level < 2" class="mr-2 btn btn-outline-success"></button>
     </div>
  
 </div>

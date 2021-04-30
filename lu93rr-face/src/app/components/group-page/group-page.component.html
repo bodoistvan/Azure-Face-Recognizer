@@ -1,4 +1,3 @@
-<app-nav></app-nav>
 <app-group-nav></app-group-nav>
 <div class="container">
 
@@ -17,7 +16,7 @@
                 <h3 class="my-1">Train Info</h3>
                 <div class="col-12 p-0 d-flex justify-content-around align-items-end">
                     <div class="col-9 p-0">
-                        <p><span class="font-weight-bold">Status:</span> {{trainInfo?.status | uppercase}} </p>
+                        <p><span class="font-weight-bold">Status:</span> {{trainInfo?.status ? (trainInfo?.status | uppercase) : 'NO DATA'}} </p>
                         <p><span
                             class="font-weight-bold">Last Train at:</span> {{trainInfo?.lastActionDateTime |
                         date:"YYYY.MM.dd HH:mm"}}</p>
@@ -53,7 +52,7 @@
     </div>
 </div>
 <div>
-    <h2>Persons:</h2>
+    <h2>Persons: {{personGroupPersons.length == 0 ? 'No person found.' : ''}}</h2>
     <ul class="list-group person-list">
         <li routerLink="/groups/{{groupId}}/persons/{{person?.personId}}"
             class="list-group-item d-flex justify-content-between align-items-center person-list-item"

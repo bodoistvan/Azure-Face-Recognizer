@@ -10,6 +10,10 @@ import { FaceService } from 'src/app/services/face.service';
 })
 export class GroupsPageComponent implements OnInit {
 
+  /*
+  Röviden: A csoporokat listázó oldal
+  */
+
   constructor(
     private faceService:FaceService,
     private fb: FormBuilder
@@ -22,7 +26,8 @@ export class GroupsPageComponent implements OnInit {
   personGroups:PersonGroup[] = [];
 
   newGroupForm = this.fb.control([], Validators.required);
-  
+
+  //Új csoport létrehozásakor API hívás, illetve bekerül a jelenlegi betöltött listába is a kérés
   onNewGroupSubmit(){
     this.newGroupForm.markAsTouched();
 
