@@ -8,6 +8,7 @@ import { SettingPageComponent } from './components/setting-page/setting-page.com
 import { AuthGuardService as AuthGuard } from './services/auth-guard.service'
 
 const routes: Routes = [
+  {path: "", redirectTo:"face", pathMatch: 'full' },
   { path: "face", component: FaceInfoComponent, canActivate: [AuthGuard] },
   { path: "settings", component: SettingPageComponent },
   { path: "groups", canActivate: [AuthGuard], children: 
